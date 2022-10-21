@@ -1,0 +1,42 @@
+{
+  "pages":[
+    "pages/home/index",
+    "pages/time/index",
+    "pages/mine/index",
+    "pages/guest/index"
+  ],
+  "usingComponents": {
+    "custom-tab": "custom-tab-bar/index"
+  },
+  "window":{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "X  💕  R",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#333",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index"
+      },
+      {
+          "pagePath": "pages/time/index"
+      },
+      {
+          "pagePath": "pages/mine/index"
+      },
+      {
+          "pagePath": "pages/guest/index"
+      }
+    ],
+    "position": "bottom"
+  },
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

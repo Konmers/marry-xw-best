@@ -1,0 +1,9 @@
+<view class="tabbar-box">
+    <block wx:for="{{menulist}}" wx:key="index">      
+      <view class="menu-item  {{active === index && 'active'}}" style="--n:{{active}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+        <view class="iconfont {{item.icon}} {{active === index && 'active-iconfont-box'}}"></view>
+        <!-- <text class="title {{active === index && 'active-iconfont-txt'}}">{{item.text}}-{{active}}</text> -->
+        <text class="title {{active === index && 'active-iconfont-txt'}}">{{item.text}}</text>
+      </view>
+    </block>
+</view>
