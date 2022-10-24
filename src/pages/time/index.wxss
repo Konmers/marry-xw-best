@@ -1,0 +1,26 @@
+.timepage {
+  height: auto;
+  width: auto;
+  margin: 0rpx;
+  padding: 0rpx;
+  /* height: 100%; */
+}
+.swiperClas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-image {
+  height: 100%;
+  width: 100%;
+  opacity:0.9;
+}
+
+.button-img{   
+    position: relative;
+    bottom: 120px;
+    height: 40px;
+    width: 120px;
+    opacity:0.6;
+}

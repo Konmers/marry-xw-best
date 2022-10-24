@@ -1,0 +1,32 @@
+.button{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  .button button{
+    position: relative;
+    left: 0%;
+    margin-top: -27%;
+    font-size: 40rpx;
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    background-color: red;
+  }
+  .aon{
+  position: absolute;
+  white-space:nowrap;/* 防止向下换行*/
+  }
+  .doommview{
+    z-index: 3;
+    height: 80%;
+    width: 100%;
+    position: absolute;
+    background-color: transparent;
+    top: 2%;
+    left: 3%;
+  }
+  /**定义从右边向左边的移动的动画**/
+  @keyframes first{
+    from{left: 100%; }
+    to{left: -100%;}
+  }

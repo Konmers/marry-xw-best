@@ -12,11 +12,10 @@ page {
   padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
 }
 .tabbar-box {
-  /* background: rgb(255, 255, 255); */
   background: rgb(254, 213, 213);
   border-radius: 10rpx 10rpx 0 0;
   position: relative;
-  height: 120rpx;
+  height: 100rpx;
   width: 100%;
   display: flex;
   align-items: center;
@@ -42,7 +41,7 @@ page {
   color: var(--color);
   transition: 0.5s all;
   z-index: 9;
-  transform: translateY(0rpx)!important;
+  transform: translateY(20rpx)!important;
 }
 .title {
   font-size: 26rpx;
@@ -50,20 +49,22 @@ page {
   color: #222;
   transition: 0.5s all;
   opacity: 1;
-  transform: translateY(50rpx)!important;
+  transform: translateY(60rpx)!important;
 }
 .active-iconfont-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  height: 100%;
+  position: absolute;
+  width: 50px;
+  height: 50px;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 10rpx solid #222;
+  border: 10rpx solid rgb(254, 213, 213);
+  // border: 10rpx solid rgba(0, 0, 0, 0.5);
   transition: 0.8s all;
   opacity: 1;
-  transform: translateY(-60rpx)!important;
+  transform: translateY(-55rpx) !important;
   background: tomato;
 }
 
@@ -73,7 +74,7 @@ page {
   color: #222;
   transition: 0.8s all;
   opacity: 1;
-  transform: translateY(-40rpx)!important;
+  transform: translateY(20rpx) !important;
 }
 
 /* .active-iconfont-box::before {

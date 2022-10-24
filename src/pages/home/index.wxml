@@ -1,10 +1,6 @@
 <view class="homepage">
-    <!-- <view class="bg-swiper"></view> -->
-    <view wx:for="{{bannerList}}" wx:for-index="bindex"  wx:for-item="bitem" >
-      <image
-        src="{{bitem}}"
-        style="height: {{screenHeights}}px!important;width: {{screenWidths}}px!important"
-      />
+    <view  class="background-view" wx:for="{{bannerList}}" wx:for-index="bindex"  wx:for-item="bitem" >
+      <image src="{{bitem}}" class="background-img"  mode="widthFix"/>
     </view>
     <image class="inv" src="../../static/images/inv.png" />
     <view class="bg_music" wx:if="{{isPlay}}" bindtap="audioControl">

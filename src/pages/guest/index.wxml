@@ -1,1 +1,27 @@
-<view class="container">Guest page</view>
+<!-- https://blog.csdn.net/wkh___/article/details/124595121?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-124595121-blog-124054130.pc_relevant_3mothn_strategy_recovery&spm=1001.2101.3001.4242.2&utm_relevant_index=4 -->
+<view class="index-view" style="height: {{screenHeights}}px!important;width: {{screenWidths}}px!important">
+	<image class='background-img' src="/static/images/background-img.jpg"></image>
+	<!-- <image class='background-img' src="/static/images/background-img.jpg" mode="widthFix"></image> -->
+	<view hidden="{{!showInput}}" class='msg-input' style="bottom: {{msgInputBottom}}px;">
+				<!-- <input type="text" confirm-type="send" bindfocus="foucusInput" focus="{{showInput}}" bindconfirm="sendMsg" bindblur="blurInput" adjust-position="{{false}}" value="{{inputVal}}"/> -->
+		<view class="text-box">
+			<text >{{inputVal}}</text>
+			<textarea class="weui-textarea" placeholder="请输入文本" maxlength="100" confirm-type="send" bindfocus="foucusInput" focus="{{showInput}}" bindconfirm="sendMsg" bindblur="blurInput" adjust-position="{{false}}"/>
+		</view>
+		
+		<button size="mini" bindtap="sendMsg">发送</button>
+	</view>
+	<image hidden="{{showInput}}" class='click-img' src="/static/images/video.png" bindtap="clickSendMsg"></image>
+</view>
+
+<view class="barrage-view">
+	<view wx:for="{{barrageLineCount}}" wx:for-item="count" 
+			wx:for-index="lineIndex" data-index="{{lineIndex}}" 
+			wx:key="*this" class="barrage-line">
+		<view class='barrage-msg' wx:for="{{barrageMsgs[lineIndex].msgInfos}}" 
+				wx:key="msg">
+			<image class='barrage-avatar' src='{{item.avatarUrl}}'></image>
+			<text class='barrage-text'>{{item.msg}}</text>
+		</view>
+	</view>
+</view>

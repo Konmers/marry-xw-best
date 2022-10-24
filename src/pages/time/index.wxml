@@ -1,1 +1,8 @@
-<view class="container">Time page</view>
+<view class="timepage">
+   <swiper class="swiperClas" indicator-active-color='#fff'  indicator-dots="true">
+        <swiper-item class="swiper-items" wx:for="{{imgs}}" wx:key="index" >
+        <image class="swiper-image" src="{{item}}"></image>
+        <button class="button-img" bindtap="start" wx:if="{{index == imgs.length - 1}}" >立即体验</button>
+        </swiper-item>
+    </swiper>
+</view>
