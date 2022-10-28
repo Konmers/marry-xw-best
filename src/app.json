@@ -6,6 +6,8 @@
     "pages/guest/index"
   ],
   "usingComponents": {
+    "van-tab": "./static/vant-vew/tab/index",
+    "van-tabs": "./static/vant-vew/tabs/index",
     "custom-tab": "custom-tab-bar/index"
   },
   "window":{

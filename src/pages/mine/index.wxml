@@ -1,1 +1,6 @@
-<view class="container">Mine page</view>
+<view class="container">Mine page
+    <van-tabs bind:click="onClick">
+        <van-tab title="标签 1">内容 1</van-tab>
+        <van-tab title="标签 2">内容 2</van-tab>
+    </van-tabs>
+</view>

@@ -39,8 +39,8 @@
     "packNpmRelationList": [],
     "minifyWXSS": false
   },
-  "compileType": "miniprogram",
-  "libVersion": "2.19.5",
+  "compileType": "marry-xr",
+  "libVersion": "2.26.2",
   "appid": "wx8776b60fd8654a65",
   "projectname": "marry-xr",
   "debugOptions": {
