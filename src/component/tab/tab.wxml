@@ -1,0 +1,9 @@
+<view class="tabBox">
+  <view wx:for="{{tabList}}" wx:key='index' class="tab" style="width:{{100/ tabList.length}}%">
+    <view class='{{item.id==tabId?"active":""}}' 
+    bindtap="_tabChange" 
+    data-id='{{item.id}}'>
+    {{item.title}}
+  </view>
+  </view>
+</view>

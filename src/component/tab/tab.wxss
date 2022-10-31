@@ -1,0 +1,25 @@
+.tabBox{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fed5d5;
+  height: 90rpx;
+} 
+.tab{
+  height: 100%!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tabBox .active{
+  width: 100%!important;
+  height: 100%!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(249, 249, 249);
+  font-size: 32rpx;
+  font-weight: 700;
+  background-color: tomato;
+  /* border-bottom: 4rpx solid red; */
+}

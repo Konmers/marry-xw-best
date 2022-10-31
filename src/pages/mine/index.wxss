@@ -1,1 +1,31 @@
-/* pages/mine/main.wxss */
+.mapV{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.phoneV{
+  height: 40px!important;
+  width: 100%!important;
+  /* background-color: rgb(38, 123, 202);  */
+  /* padding: 0 5px; */
+  position: absolute;
+  bottom: 130px;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items:center;
+}
+.phoneT{
+  width: 35%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #803429;
+  background-color: white;
+  box-shadow:h-shadow v-shadow blur spread color inset;
+  border-radius: 8px;
+}

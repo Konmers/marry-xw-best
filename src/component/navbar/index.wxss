@@ -1,0 +1,26 @@
+.navbar{
+	display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* height: 130rpx; */
+}
+
+.navbarleft{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.navbarleft image{
+  width: 138rpx;
+  height: 34rpx;
+}
+.navbarright{
+  width: 100%;
+  font-size: 32rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: #060606;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

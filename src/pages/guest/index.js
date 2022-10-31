@@ -1,6 +1,7 @@
 import {
     showTextToast
 } from '../../utils/showToast.js'
+import { shareEvent } from '../../utils/util.js'
 const app = getApp();
 Page({
     /**
@@ -31,6 +32,7 @@ Page({
         // 存储随机颜色
         randomColorArr: [],
         labLen: '',
+        shareList: null
     },
 
     async onLoad() {
@@ -55,6 +57,15 @@ Page({
         setInterval((that) => {
             this.asyShowbarrage();
         }, 500, this);
+        const db = wx.cloud.database();
+        db
+            .collection("share")
+            .get()
+            .then((res) => {
+                // console.log("share  res  ---------------  ", res);
+                //打印获取到的数据
+                this.setData({ shareList: res.data[0].shareList })
+            });
     },
     /**
      * 生命周期函数--监听页面显示
@@ -65,30 +76,7 @@ Page({
         const that = this
         wx.getSystemInfo({
             success: function (res) {
-                // console.log("getSystemInfo ------------  ", res); //获取设备所有信息
-                // SDKVersion: "2.4.1";
-                // batteryLevel: 96;
-                // brand: "devtools";
-                // deviceOrientation: "portrait";
-                // errMsg: "getSystemInfo:ok";
-                // fontSizeSetting: 16;
-                // language: "zh_CN";
-                // model: "iPhone 6/7/8";
-                // pixelRatio: 2;
-                // platform: "devtools";
-                // screenHeight: 667;
-                // screenWidth: 375;
-                // statusBarHeight: 20;
-                // system: "iOS 10.0.1";
-                // version: "7.0.4";
-                // windowHeight: 555;
-                // windowWidth: 375;
-                // console.log(res.windowWidth); //屏幕宽度
-                // console.log("res --------------  ", res);
-                // that.setData({ screenWidths: res.screenWidth, screenHeights: res.screenHeight })
-                that.setData({ screenWidths: res.windowWidth, screenHeights: res.windowHeight - 100 })
-                // console.log("this.screenWidth --------------  ", this.screenWidth);
-                // console.log("this.screenHeight --------------  ", this.screenHeight);
+                that.setData({ screenWidths: res.windowWidth, screenHeights: res.windowHeight })
             },
         });
     },
@@ -120,6 +108,7 @@ Page({
                 // console.log("添加成功  res --------------  ", res);
                 showTextToast("您的祝福已发送~");
                 this.setData({ showInput: false, inputVal: "" });
+                this.getBarrageList();
             }).catch((res) => {
                 console.log("添加失败  res --------------  ", res);
             });
@@ -166,11 +155,11 @@ Page({
         this.setData({ barrageMsgs: barrageMsgs });
     },
     // 获取弹幕list
-    getBarrageList() {
+    async getBarrageList() {
         let that = this
         const db = wx.cloud.database();
         // setInterval((that) => {
-        db.collection("benediction").get().then((res) => {
+        await db.collection("benediction").get().then((res) => {
             console.log("get  res.data --------------  ", res.data);
             that.setData({ barrageNewMsgs: res.data });
 
@@ -273,5 +262,34 @@ Page({
                 break;
             }
         }
+    },
+    //分享朋友圈
+    onShareTimeline: function (option) {
+        //先写一个数组,
+        var shareimg = this.data.shareList;
+        //在写随机数
+        var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
+        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let obj = {
+            title: shareTitle,
+            imageUrl: randomImg,
+            query: ''
+        };
+        return shareEvent(option, obj);
+    },
+    //分享用户
+    onShareAppMessage: function (option) {
+        //先写一个数组,
+        var shareimg = this.data.shareList;
+        //在写随机数
+        var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
+        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let sharePath = "/pages/home/index";
+        let obj = {
+            title: shareTitle,
+            path: sharePath,
+            imageUrl: randomImg
+        };
+        return shareEvent(option, obj);
     },
 })

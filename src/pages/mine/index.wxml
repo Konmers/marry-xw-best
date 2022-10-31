@@ -1,6 +1,28 @@
-<view class="container">Mine page
-    <van-tabs bind:click="onClick">
-        <van-tab title="标签 1">内容 1</van-tab>
-        <van-tab title="标签 2">内容 2</van-tab>
-    </van-tabs>
+<!-- <navbar page-name="X  💕  R mine"></navbar> -->
+<view class="Mine-main" style="height: {{screenHeights}}px!important;width: {{screenWidths}}px!important;position: fixed;">
+  <tab tabList='{{showtabList}}' tabId='{{tabId}}' bind:onTab='onTab'></tab>
+  <map
+    id="map"
+    class="mapCss"
+    longitude="{{mapData[tabId].longitude}}"
+    latitude="{{mapData[tabId].latitude}}"
+    markers="{{markers}}"
+    scale="14"
+    style="height: 100%;width: 100vw;"
+  >
+    <view class="mapV">
+      <iconfont name="icon-daohang1" style="height: 80vh!important;width: 80vw!important;" bindtap="searchAddress"></iconfont>
+      <!-- <image style="height: 60px;width: 60px;" src="/static/images/nav.png" bindtap="searchAddress"></image> -->
+    </view>
+    <view class="phoneV">
+      <view class="phoneT"  bindtap="phoneClick"  data-phoneNumber="{{ManphoneNumber}}">
+        <iconfont name="icon-xinlang2"></iconfont>
+        <text >联系新郎</text>
+      </view>
+      <view class="phoneT"  bindtap="phoneClick"  data-phoneNumber="{{WomanphoneNumber}}">
+        <text >联系新娘</text>
+        <iconfont name="icon-xinniang2"></iconfont>
+      </view>
+    </view>
+  </map>
 </view>

@@ -1,17 +1,5 @@
-/*
- * @Description: 
- * @Version: 
- * @Auther: Konmer
- * @time: 2022-10-14 15
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-24 18
- */
-//Page Object
-
-import {
-    showTextToast
-} from '../../utils/showToast.js'
-
+import { showTextToast } from '../../utils/showToast.js'
+import { formatData, shareEvent } from '../../utils/util.js'
 let audioCtx = wx.createInnerAudioContext();
 const appInstance = getApp();
 const { isPlayGlobal, musicIdGlobal } = appInstance.globalData;
@@ -21,11 +9,49 @@ Page({
         screenHeights: 0, // 屏幕高度
         bannerList: [],
         isPlay: true, //false 关闭  true 开启  音乐
-        audioUrl: '/static/atudio/HoldMeWhileYouWait.mp3',//本地路径
-        srcMic: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/music/HoldMeWhileYouWait.mp3'//网路路径
+        audioUrl: '/static/atudio/PerfectDuet.mp3',//本地路径
+        srcMic: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/music/HoldMeWhileYouWait.mp3',//网路路径
+        locationData: [
+            {
+                strDate: "谨定于 2022年12月03日（星期六）中午12:00",
+                txt1: '农历 冬月 初十 中午十二点整 举办婚礼',
+                txt2: '2楼 海洋厅',
+                txt3: '重庆 巴南 南仙庭饭店',
+                time: 20221203//20221203
+            },
+            {
+                strDate: "谨定于 2022年12月18日（星期日）中午12:00",
+                txt1: '农历 冬月 二十五 中午十二点整',
+                txt2: '1楼',
+                txt3: '重庆 忠县 新立金土地酒楼',
+                time: 20221218//20221218
+            },
+        ],
+        locationDatas: [
+            {
+                strDate: "谨定于 2023年01月18日（星期六）中午12:00",
+                txt1: '农历 腊月 二十七 中午十二点整  答谢宴',
+                txt2: '1楼',
+                txt3: '广元 旺苍 米仓山大酒店',
+                time: 20230118//20230118
+            },
+        ],
+        showData: [],
+        nowDate: null,
+        shareList: null
     },
     onLoad: function () {
-        console.log("Home onLoad ------------ ");
+        var date = formatData(new Date());
+        if (date <= 20221218) {
+            this.setData({
+                showData: this.data.locationData,
+            });
+        }
+        else {
+            this.setData({
+                showData: this.data.locationDatas,
+            });
+        }
         this.inits();
         this.getDatas();
     },
@@ -36,6 +62,17 @@ Page({
         // audioCtx.src = that.data.srcMic//网路路径音频
         audioCtx.loop = true
         audioCtx.play()
+    },
+    onReady() {
+        const db = wx.cloud.database();
+        db
+            .collection("share")
+            .get()
+            .then((res) => {
+                // console.log("share  res  ---------------  ", res);
+                //打印获取到的数据
+                this.setData({ shareList: res.data[0].shareList })
+            });
     },
     inits() {
         const that = this
@@ -62,7 +99,7 @@ Page({
                 // console.log(res.windowWidth); //屏幕宽度
                 // console.log("res --------------  ", res);
                 // that.setData({ screenWidths: res.screenWidth, screenHeights: res.screenHeight })
-                that.setData({ screenWidths: res.windowWidth, screenHeights: res.windowHeight })
+                that.setData({ screenWidths: res.windowWidth, screenHeights: res.windowHeight - 100 })
                 // console.log("this.screenWidth --------------  ", this.screenWidth);
                 // console.log("this.screenHeight --------------  ", this.screenHeight);
             },
@@ -70,10 +107,10 @@ Page({
     },
     getDatas() {
         // wx.showLoading(
-        //   {
-        //     title: "加载中",
-        //   },
-        //   500
+        //     {
+        //         title: "加载中",
+        //     },
+        //     500
         // );
         const db = wx.cloud.database();
         db
@@ -81,11 +118,7 @@ Page({
             .get()
             .then((res) => {
                 //打印获取到的数据
-                // console.log("res --------------  ", res);
-                // console.log("res.data --------------  ", res.data);
-                // that.bannerList = res.data[0].bannerList;
                 this.setData({ bannerList: res.data[0].bannerList })
-                // console.log("that.bannerList --------------  ", this.bannerList);
             });
     },
     audioControl() {
@@ -114,10 +147,41 @@ Page({
         db.collection("music")
             .get()
             .then((res) => {
-                console.log("getMusicUrl   ---------  ", res);
+                // console.log("getMusicUrl   ---------  ", res);
                 // that.audioUrl = res.data[0].musicUrl;
                 this.setData({ audioUrl: res.data[0].musicUrl })
                 this.audioCtx.play();
             });
+    },
+
+    //分享朋友圈
+    onShareTimeline: function (option) {
+        //先写一个数组,
+        var shareimg = this.data.shareList;
+        //在写随机数
+        var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
+        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let obj = {
+            title: shareTitle,
+            imageUrl: randomImg,
+            query: ''
+        };
+        return shareEvent(option, obj);
+    },
+
+    //分享用户
+    onShareAppMessage: function (option) {
+        //先写一个数组,
+        var shareimg = this.data.shareList;
+        //在写随机数
+        var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
+        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let sharePath = "/pages/home/index";
+        let obj = {
+            title: shareTitle,
+            path: sharePath,
+            imageUrl: randomImg
+        };
+        return shareEvent(option, obj);
     },
 });

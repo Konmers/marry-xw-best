@@ -1,92 +1,77 @@
-/*
- * @Description: 
- * @Version: 
- * @Auther: Konmer
- * @time: 2022-10-21 17
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-23 15
- */
-// pages/time/main.js
+import { shareEvent } from '../../utils/util.js'
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    imgs: [
-      "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2522069454.jpg",
-      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2522778567.jpg",
-      "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2523516430.jpg",
-    ],
-
-    img: "http://img.kaiyanapp.com/7ff70fb62f596267ea863e1acb4fa484.jpeg",
+    currentIndex: 0,
+    imgs: [],
+    screenWidths: 0, // 屏幕宽度
+    screenHeights: 0, // 屏幕高度
+    shareList: null
   },
-
-  //绑定的方法
-  img(res) {
-    console.log(res);
-    let src = res.currentTarget.dataset.src
-    let list = res.currentTarget.dataset.list
-
-    wx.previewImage({
-      urls: list,
-      current: src
-    })
-
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
+    const db = wx.cloud.database();
+    db
+      .collection("time")
+      .get()
+      .then((res) => {
+        //打印获取到的数据
+        this.setData({ imgs: res.data[0].imgList })
+      });
+    db
+      .collection("share")
+      .get()
+      .then((res) => {
+        // console.log("share  res  ---------------  ", res);
+        //打印获取到的数据
+        this.setData({ shareList: res.data[0].shareList })
+      });
+    this.inits();
+  },
+  onReady() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  inits() {
+    const that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({ screenWidths: res.windowWidth, screenHeights: res.windowHeight })
+      },
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  swiperChange(e) {
+    this.setData({
+      currentIndex: e.detail.current
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  //分享朋友圈
+  onShareTimeline: function (option) {
+    //先写一个数组,
+    var shareimg = this.data.shareList;
+    //在写随机数
+    var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
+    let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+    let obj = {
+      title: shareTitle,
+      imageUrl: randomImg,
+      query: ''
+    };
+    return shareEvent(option, obj);
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  //分享用户
+  onShareAppMessage: function (option) {
+    //先写一个数组,
+    var shareimg = this.data.shareList;
+    //在写随机数
+    var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
+    let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+    let sharePath = "/pages/home/index";
+    let obj = {
+      title: shareTitle,
+      path: sharePath,
+      imageUrl: randomImg
+    };
+    return shareEvent(option, obj);
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

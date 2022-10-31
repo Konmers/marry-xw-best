@@ -6,14 +6,13 @@
     "pages/guest/index"
   ],
   "usingComponents": {
-    "van-tab": "./static/vant-vew/tab/index",
-    "van-tabs": "./static/vant-vew/tabs/index",
-    "custom-tab": "custom-tab-bar/index"
+    "custom-tab": "custom-tab-bar/index",
+    "iconfont": "component/iconfont/iconfont"
   },
   "window":{
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "X  💕  R",
+    "navigationBarTitleText": "谢威💕任清婚礼请柬",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -27,13 +26,13 @@
         "pagePath": "pages/home/index"
       },
       {
-          "pagePath": "pages/time/index"
+        "pagePath": "pages/time/index"
       },
       {
-          "pagePath": "pages/mine/index"
+        "pagePath": "pages/mine/index"
       },
       {
-          "pagePath": "pages/guest/index"
+        "pagePath": "pages/guest/index"
       }
     ],
     "position": "bottom"

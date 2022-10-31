@@ -4,7 +4,7 @@
  * @Auther: Konmer
  * @time: 2022-10-14 17
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-21 09
+ * @LastEditTime: 2022-10-30 05
  */
 import {
 	storeBindingsBehavior
@@ -30,7 +30,6 @@ Component({
 			updateActive: 'updateActive', //左侧为组件中方法的名字 右侧为Store中方法的名字
 		}
 	},
-	attached() { },
 	methods: {
 		switchTab(e) {
 			this.updateActive(e.currentTarget.dataset.index);

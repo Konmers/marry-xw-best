@@ -1,1 +1,5 @@
-{}
+{
+    "usingComponents": {
+        "navbar": "/component/navbar/index"
+    }
+}

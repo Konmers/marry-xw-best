@@ -2,7 +2,7 @@
     <block wx:for="{{menulist}}" wx:key="index">      
       <view class="menu-item  {{active === index && 'active'}}" style="--n:{{active}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
         <view class="iconfont {{active === index && 'active-iconfont-box'}}">
-          <view class="{{item.icon}}"></view>
+          <iconfont name="{{item.icon}}"></iconfont>
         </view>
         <!-- <text class="title {{active === index && 'active-iconfont-txt'}}">{{item.text}}-{{active}}</text> -->
         <text class="title {{active === index && 'active-iconfont-txt'}}">{{item.text}}</text>

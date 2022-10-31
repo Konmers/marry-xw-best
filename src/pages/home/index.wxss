@@ -120,18 +120,18 @@ body,
 }
 
 .info {
-  width: 630rpx;
-  background: rgba(255, 255, 255, 0.75);
+  width: 700rpx;
+  background: rgba(255, 255, 255, 0.7);
   z-index: 9;
   position: fixed;
-  bottom: 200rpx;
-  left: 50rpx;
+  bottom: 120rpx;
+  left: 20rpx;
   padding: 10rpx;
   animation: infoAnimation 12s linear infinite;
 }
 .content {
-  width: 626rpx;
-  border: 1rpx solid #000;
+  width: 680rpx;
+  border: 1rpx solid #803429;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -139,6 +139,7 @@ body,
   position: relative;
   padding-bottom: 30rpx;
 }
+
 .content > h1 {
   font-size: 50rpx;
   height: 100rpx;
@@ -146,7 +147,8 @@ body,
 }
 
 .content > p {
-  font-size: 24rpx;
+  font-size: 16px;
+  font-weight: 600;
   height: 60rpx;
   line-height: 60rpx;
 }

@@ -1,0 +1,7 @@
+<!-- 头部导航栏 -->
+<view class="navbar" style="height: {{topHeight}}px">
+  <!-- <view class="navbarleft">
+    <iconfont name="icon-tubiaov-daochushangchuan-1"></iconfont>
+  </view> -->
+  <view class="navbarright">{{pageName}}</view>
+</view>
