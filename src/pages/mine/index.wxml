@@ -7,7 +7,7 @@
     longitude="{{mapData[tabId].longitude}}"
     latitude="{{mapData[tabId].latitude}}"
     markers="{{markers}}"
-    scale="14"
+    scale="15"
     style="height: 100%;width: 100vw;"
   >
     <view class="mapV">

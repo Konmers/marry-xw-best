@@ -1,6 +1,4 @@
-import {
-    showTextToast
-} from '../../utils/showToast.js'
+import { showTextToast } from '../../utils/showToast.js'
 import { shareEvent } from '../../utils/util.js'
 const app = getApp();
 Page({
@@ -8,6 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        bgImg: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/image/time/Imgew.png?sign=5523f5b8a6e6d8f7a7474e369ac54475&t=1667305283',
         screenWidths: 0, // 屏幕宽度
         screenHeights: 0, // 屏幕高度
         msgInputBottom: 0,
@@ -18,17 +17,17 @@ Page({
         barragePullMillis: 0,
         // 最新的弹幕
         barrageNewMsgs: [],
+        num: 20,
+        page: 0,
+        contR: 0,//人数
         // 已显示的弹幕，无新弹幕时则循环
         barrageSendedMsgs: [],
         // 弹幕显示数据
         barrageMsgs: [],
         userInfo: {},
         hasUserInfo: false,
-        colorArr: ["#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
-            "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
-            "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
-            "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
-            "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"],
+        colorArr: ["#00ffff", "#00ffcc", "#FF3030", "#EE4000", "#FF1493", "#D2691E", "#FF4500", "#FFE4C4", "#FFD700", "#00FF7F", "#1E90FF", "#00CED1", "#00FFFF", "#FF3333", "#FFFF99"],
+
         // 存储随机颜色
         randomColorArr: [],
         labLen: '',
@@ -36,7 +35,8 @@ Page({
     },
 
     async onLoad() {
-        this.getBarrageList();
+        await this.getBarrageList();
+        await this.getData();
     },
 
     /**
@@ -47,11 +47,11 @@ Page({
         // 初始化barrageLineCount个弹幕行
         this.barrageInit();
 
-        // 每隔2s拉取最新的弹幕
-        setInterval((that) => {
-            this.getBarrageList();
-        }, 20000, this);
-
+        // 每隔2s拉取最新的弹幕  1s = 1000
+        await setInterval(async (that) => {
+            await this.getBarrageList();
+            await this.getData();
+        }, 5000, this);
 
         // 动态显示弹幕
         setInterval((that) => {
@@ -62,16 +62,60 @@ Page({
             .collection("share")
             .get()
             .then((res) => {
-                // console.log("share  res  ---------------  ", res);
                 //打印获取到的数据
                 this.setData({ shareList: res.data[0].shareList })
             });
     },
     /**
-     * 生命周期函数--监听页面显示
+     * 从数据库获取数据
      */
-    onShow: function () {
+    async getData() {
+        await wx.cloud.callFunction({
+            name: "benedictionList",  //云函数名
+            data: {
+                num: 500,    //用来记录每次获取数据的数量
+                page: 0,  //每次从page条数据之后获取数据
+            }
+        }).then(res => {
+            if (res.result.data.length > 0) {
+                let arr = res.result.data
+                let arrAll = arr.filter(function (item, index) {
+                    let myArr = []  // 对象的某个属性放入临时数组，对比临时数组中元素所在对象的索引，
+                    // 多个对象可push多个，均不相同return ..&&..   有一不同 return ..||..
+                    arr.forEach(items => {
+                        myArr.push(items.name)
+                    })
+                    return myArr.indexOf(item.name) === index
+                })
+                this.setData({ contR: arrAll.length })
+            }
+        })
+
+        // wx.cloud.callFunction({
+        //     name: "sreachList",  //云函数名
+        //     data: {
+        //         dbName: 'benediction',
+        //         pageIndex: 1,//每次从page条数据之后获取数据
+        //         pageSize: 10//用来记录每次获取数据的数量
+        //     }
+        // }).then(res => {
+        //     console.log(" res -------------- ", res);
+        //     // if (res.result.data.length > 0) {
+        //     //     let arr = res.result.data
+        //     //     let arrAll = arr.filter(function (item, index) {
+        //     //         let myArr = []  // 对象的某个属性放入临时数组，对比临时数组中元素所在对象的索引，
+        //     //         // 多个对象可push多个，均不相同return ..&&..   有一不同 return ..||..
+        //     //         arr.forEach(items => {
+        //     //             myArr.push(items.name)
+        //     //         })
+        //     //         return myArr.indexOf(item.name) === index
+        //     //     })
+        //     //     console.log(" arrAll -------------- ", arrAll);
+        //     //     this.setData({ contR: arrAll.length })
+        //     // }
+        // })
     },
+
     inits() {
         const that = this
         wx.getSystemInfo({
@@ -102,13 +146,14 @@ Page({
                 data: {
                     name: userInfo.nickName,
                     avatar: userInfo.avatarUrl,
-                    msg: msg
+                    msg: msg,
+                    time: new Date(),
                 }
             }).then((res) => {
                 // console.log("添加成功  res --------------  ", res);
                 showTextToast("您的祝福已发送~");
                 this.setData({ showInput: false, inputVal: "" });
-                this.getBarrageList();
+                // this.getBarrageList();
             }).catch((res) => {
                 console.log("添加失败  res --------------  ", res);
             });
@@ -123,11 +168,12 @@ Page({
                         data: {
                             name: userData.nickName,
                             avatar: userData.avatarUrl,
-                            msg: msg
+                            msg: msg,
+                            time: new Date(),
                         }
                     }).then((res) => {
                         // console.log("添加成功  res --------------  ", res);
-                        console.log(" userData --------------  ", userData);
+                        // console.log(" userData --------------  ", userData);
                         showTextToast("您的祝福已发送~");
                         this.setData({
                             userInfo: userData,
@@ -156,32 +202,48 @@ Page({
     },
     // 获取弹幕list
     async getBarrageList() {
-        let that = this
-        const db = wx.cloud.database();
-        // setInterval((that) => {
-        await db.collection("benediction").get().then((res) => {
-            console.log("get  res.data --------------  ", res.data);
-            that.setData({ barrageNewMsgs: res.data });
-
-            // 动态msg color
-            var labLen = res.data.length,
-                colorArr = this.data.colorArr,
-                colorLen = colorArr.length,
-                randomColorArr = [];
-            //判断执行
-            for (var i = 0; i <= colorLen; i++) {
-                let random = colorArr[Math.floor(Math.random() * colorLen)];
-                // console.log(random)
-                randomColorArr.push(random);
+        let num = this.data.num;
+        let page = this.data.page;
+        await wx.cloud.callFunction({
+            name: "benedictionList",  //云函数名
+            data: {
+                num: num,    //用来记录每次获取数据的数量
+                page: page,  //每次从page条数据之后获取数据
             }
-            this.setData({
-                barrageNewMsgs: res.data,
-                randomColorArr: randomColorArr
-            });
-        }).catch((res) => {
-            console.log("失败  res --------------  ", res);
-        });
-        // }, 5000, this);
+        }).then(res => {
+            if (res.result.data.length > 0) {
+                var newData = res.result.data;
+                //将时间戳写成固定格式
+                newData.forEach(item => {
+                    var d = new Date(item.time)
+                    var year = d.getFullYear()
+                    var month = d.getMonth() + 1
+                    var day = d.getDate()
+                    item.time = year + "/" + month + "/" + day
+                    //文本内容中的换行和空格要进行相应的转换，才能保证输出的正确性
+                    item.msg = item.msg.split('&hc').join('\n')
+                })
+
+                // 动态msg color
+                var labLen = newData.length;
+                var colorArr = this.data.colorArr;
+                var colorLen = colorArr.length;
+                var randomColorArrs = [];
+
+                //判断执行
+                for (var i = 0; i < colorLen; i++) {
+                    if (labLen < i) break;
+                    else {
+                        let random = colorArr[Math.floor(Math.random() * colorLen)];
+                        randomColorArrs.push(random);
+                    }
+                }
+                this.setData({
+                    barrageNewMsgs: newData,
+                    randomColorArr: randomColorArrs,
+                });
+            }
+        })
     },
     // 动态显示弹幕
     asyShowbarrage() {
@@ -269,7 +331,7 @@ Page({
         var shareimg = this.data.shareList;
         //在写随机数
         var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
         let obj = {
             title: shareTitle,
             imageUrl: randomImg,
@@ -283,7 +345,7 @@ Page({
         var shareimg = this.data.shareList;
         //在写随机数
         var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
         let sharePath = "/pages/home/index";
         let obj = {
             title: shareTitle,

@@ -1,5 +1,4 @@
 {
-  "cloudbaseRoot":"cloud/",
   "description": "项目配置文件",
   "packOptions": {
     "ignore": []
@@ -43,16 +42,18 @@
   "compileType": "marry-xr",
   "libVersion": "2.26.2",
   "appid": "wx8776b60fd8654a65",
-  "projectname": "marry-xr",
+  "projectname": "marry-xrsrc",
   "debugOptions": {
     "hidedInDevtools": []
   },
   "scripts": {},
+  "cloudfunctionRoot": "cloudfunctions/",
   "staticServerOptions": {
     "baseURL": "",
     "servePath": ""
   },
   "isGameTourist": false,
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "search": {
       "list": []

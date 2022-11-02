@@ -1,31 +1,33 @@
 <!-- https://blog.csdn.net/wkh___/article/details/124595121?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-124595121-blog-124054130.pc_relevant_3mothn_strategy_recovery&spm=1001.2101.3001.4242.2&utm_relevant_index=4 -->
 <!-- <navbar page-name="X  💕  R guest"></navbar> -->
 <view class="index-view" style="height: {{screenHeights}}px!important;width: {{screenWidths}}px!important;position: fixed;">
-	<image class='background-img' src="/static/images/background-img.jpg"></image>
-	<view hidden="{{!showInput}}" class='msg-input' style="bottom: {{msgInputBottom}}px;">
+	<image class='background-img' src="{{bgImg}}"></image>
+	<view class="showteshuju">已收到{{contR}}位好友祝福</view>
+	<view hidden="{{!showInput}}" class='msg-input' style="bottom: 130rpx;">
+		<button size="mini" bindtap="sendMsg">发送</button>
 		<view class="text-box">
 			<textarea 
 			 	class="weui-textarea" 
-				placeholder="请输入文本" 
-				maxlength="50" 
+				placeholder="请编写您的祝福~" 
+				maxlength="70" 
 				confirm-type="send" 
 				focus="{{showInput}}" 
 				bindinput="getInput" 
 				value="{{inputVal}}" />
 		</view>
-		<button size="mini" bindtap="sendMsg">发送</button>
 	</view>
-	<image hidden="{{showInput}}" class='click-img' src="/static/images/video.png" bindtap="clickSendMsg"></image>
+	<view class='clickText' hidden="{{showInput}}"  bindtap="clickSendMsg">
+		<text >送 上 祝 福</text>
+	</view>
 </view>
 
 <view class="barrage-view">
 	<view wx:for="{{barrageLineCount}}" wx:for-item="count" 
 			wx:for-index="lineIndex" data-index="{{lineIndex}}" 
 			wx:key="*this" class="barrage-line">
-		<view class='barrage-msg' wx:for="{{barrageMsgs[lineIndex].msgInfos}}" 
-				wx:key="msg">
+		<view class='barrage-msg' wx:for="{{barrageMsgs[lineIndex].msgInfos}}"wx:key="msg">
 			<image class='barrage-avatar' src='{{item.avatar}}'></image>
-			<text class='barrage-text' style="color:{{randomColorArr[lineIndex]}}">{{item.msg}}</text>
+			<text class='barrage-text' style="color:{{randomColorArr[lineIndex]?randomColorArr[lineIndex]:'#99FFFF'}}">{{item.msg}}</text>
 		</view>
 	</view>
 </view>

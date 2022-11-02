@@ -4,7 +4,7 @@
  * @Auther: Konmer
  * @time: 2022-10-17 11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-30 02
+ * @LastEditTime: 2022-11-02 01
  */
 //在这个js中专门创建Store的实例对象,引入要使用的初始化方法
 import {
@@ -26,7 +26,7 @@ export const store = observable({
     {
         "pagePath": "pages/time/index",
         "text": "美好时光",
-        "icon": "icon-tianmiyike",
+        "icon": "icon-sheying",
         "iconPath": "/static/images/marrys.png",
         "selectedIconPath": "/static/images/marry_click.png"
     }, {
@@ -38,7 +38,7 @@ export const store = observable({
     }, {
         "pagePath": "pages/guest/index",
         "text": "宾客信息",
-        "icon": "icon-sheying",
+        "icon": "icon-tianmiyike",
         "iconPath": "/static/images/guests.png",
         "selectedIconPath": "/static/images/guest_click.png"
     }

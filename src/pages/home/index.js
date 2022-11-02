@@ -13,34 +13,35 @@ Page({
         srcMic: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/music/HoldMeWhileYouWait.mp3',//网路路径
         locationData: [
             {
-                strDate: "谨定于 2022年12月03日（星期六）中午12:00",
-                txt1: '农历 冬月 初十 中午十二点整 举办婚礼',
+                strDate: "谨定于 2022年12月03日（星期六）中午11:48",
+                txt1: '农历 冬月 初十 中午十一点四十八 举办婚礼',
                 txt2: '2楼 海洋厅',
-                txt3: '重庆 巴南 南仙庭饭店',
+                txt3: '重庆 巴南区 李家沱 巴南大道中恒大城南仙庭饭店',
                 time: 20221203//20221203
             },
             {
                 strDate: "谨定于 2022年12月18日（星期日）中午12:00",
-                txt1: '农历 冬月 二十五 中午十二点整',
+                txt1: '农历 冬月 二十五 中午十二点整 答谢宴',
                 txt2: '1楼',
-                txt3: '重庆 忠县 新立金土地酒楼',
+                txt3: '重庆 忠县 新立镇 金土地酒楼',
                 time: 20221218//20221218
             },
         ],
         locationDatas: [
             {
-                strDate: "谨定于 2023年01月18日（星期六）中午12:00",
-                txt1: '农历 腊月 二十七 中午十二点整  答谢宴',
-                txt2: '1楼',
+                strDate: "谨定于 2023年01月17日（星期二）中午12:00",
+                txt1: '农历 腊月 二十六 中午十二点整  答谢宴',
+                txt2: '2楼',
                 txt3: '广元 旺苍 米仓山大酒店',
                 time: 20230118//20230118
             },
         ],
         showData: [],
         nowDate: null,
-        shareList: null
+        shareList: null,
+        kaipingFlag: true
     },
-    onLoad: function () {
+    onLoad() {
         var date = formatData(new Date());
         if (date <= 20221218) {
             this.setData({
@@ -54,14 +55,22 @@ Page({
         }
         this.inits();
         this.getDatas();
-    },
-    onShow() {
+
         const that = this
         that.isPlay = true
+        audioCtx.title = "PerfectDuet"
         audioCtx.src = that.data.audioUrl//本地路径音频
         // audioCtx.src = that.data.srcMic//网路路径音频
         audioCtx.loop = true
-        audioCtx.play()
+        audioCtx.play();
+    },
+    onShow() {
+        // const that = this
+        // that.isPlay = true
+        // audioCtx.title = "PerfectDuet"
+        // audioCtx.src = that.data.audioUrl//本地路径音频
+        // // audioCtx.src = that.data.srcMic//网路路径音频
+        // audioCtx.loop = true
     },
     onReady() {
         const db = wx.cloud.database();
@@ -153,14 +162,13 @@ Page({
                 this.audioCtx.play();
             });
     },
-
     //分享朋友圈
-    onShareTimeline: function (option) {
+    onShareTimeline(option) {
         //先写一个数组,
         var shareimg = this.data.shareList;
         //在写随机数
         var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的幸福时刻！";
         let obj = {
             title: shareTitle,
             imageUrl: randomImg,
@@ -168,14 +176,13 @@ Page({
         };
         return shareEvent(option, obj);
     },
-
     //分享用户
-    onShareAppMessage: function (option) {
+    onShareAppMessage(option) {
         //先写一个数组,
         var shareimg = this.data.shareList;
         //在写随机数
         var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-        let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+        let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
         let sharePath = "/pages/home/index";
         let obj = {
             title: shareTitle,
@@ -183,5 +190,12 @@ Page({
             imageUrl: randomImg
         };
         return shareEvent(option, obj);
+    },
+    /**
+  * 生命周期函数--监听页面卸载
+  */
+    onUnload: function () {
+        //离开页面是停止播放音乐
+        wx.getBackgroundAudioManager().stop();
     },
 });

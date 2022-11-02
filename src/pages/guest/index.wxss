@@ -9,12 +9,23 @@
   height: 100%;
   position: absolute;
 }
+.showteshuju{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  z-index: 99;
+  color: #ee7d59;
+}
+
 .msg-input { 
   position: absolute; 
   display: flex;
   width: 100%; 
   bottom: 0px; 
-  background-color: rgba(241, 213, 135, 0.911); 
+  /* background-color: rgba(241, 213, 135, 0.911);  */
 }
 .msg-input input{ 
   margin: 20rpx 1% 10rpx 1%; 
@@ -33,6 +44,7 @@
 }
 .text-box{
   width: 75%;
+  height: 200rpx;
   /* width:100%; */
   margin: 20rpx 1% 10rpx 1%; 
   position: relative;
@@ -59,8 +71,14 @@
   word-wrap:break-word;
 }
 
+.weui-textarea{
+  padding: 10rpx;
+  text-indent: 4px;
+}
 
 .msg-input button {
+  height: 30px;
+  margin-top: 20rpx!important;
   width: 15%; 
   display: flex;
   align-items: center;
@@ -80,6 +98,21 @@
   height: 20%; 
   bottom: 18%; 
 }
+.clickText { 
+  position: absolute;
+  width: 35%;
+  height: 70rpx;
+  bottom: 18%; 
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(247, 40, 40);
+}
+.clickText text{
+  font-size: 18px;
+  color:white;
+ }
 
 .barrage-view { 
   position: absolute; 

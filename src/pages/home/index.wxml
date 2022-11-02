@@ -25,12 +25,19 @@
     </view>
     <view class="info" :animation="animationData">
       <view class="content">
-        <h1>Mr.谢 & Miss.任</h1>
+        <!-- <h1>Mr.谢 & Miss.任</h1> -->
+        <h1>谢威 & 任清</h1>
         <view style="border-bottom-color: none;" class="content" wx:for="{{showData}}" wx:for-item="Ditem">
           <p style="font-size: 14px;">{{ Ditem.strDate }}</p>
           <p>{{Ditem.txt1}}</p>
           <p>席设：{{Ditem.txt2}}</p>
-          <p>地址：{{Ditem.txt3}}</p>
+          <view class="address">
+            <text class="addresstext1">
+              地址：
+            </text>
+            <text class="addresstext12">{{Ditem.txt3}}</text>
+          </view>
+
         </view>
         <image src="../../static/images/we.png" class="img_footer" />
       </view>

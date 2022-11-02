@@ -86,8 +86,10 @@ body,
 
 .bg_music {
   position: fixed;
-  right: 0;
-  top: 20rpx;
+  /* right: 0;
+  top: 20rpx; */
+  left: 20rpx;
+  top: 50rpx;
   width: 100rpx;
   z-index: 99;
   display: flex;
@@ -95,8 +97,8 @@ body,
   align-items: flex-start;
 }
 .musicImg {
-  width: 60rpx;
-  height: 60rpx;
+  /* width: 60rpx;
+  height: 60rpx; */
 }
 
 .music_icon {
@@ -151,6 +153,25 @@ body,
   font-weight: 600;
   height: 60rpx;
   line-height: 60rpx;
+}
+.address{
+  width:100%;
+  display:flex;
+}
+.address > text {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 60rpx;
+}
+.addresstext1{
+  width:20%;
+  height:0px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.addresstext12{
+  width:80%;
 }
 
 .content > .img_footer {

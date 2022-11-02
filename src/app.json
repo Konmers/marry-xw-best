@@ -1,10 +1,12 @@
 {
   "pages":[
+    "pages/launch/index",
     "pages/home/index",
     "pages/time/index",
     "pages/mine/index",
     "pages/guest/index"
   ],
+  "requiredBackgroundModes":["audio"],
   "usingComponents": {
     "custom-tab": "custom-tab-bar/index",
     "iconfont": "component/iconfont/iconfont"

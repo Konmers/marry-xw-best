@@ -1,0 +1,13 @@
+<view class="kaiping_box">
+  <image style="width: 100%;height: 100%; background-color: #eeeeee;" src="/static/images/background-img.jpg"></image>
+  <view  class="kaiping-touxiang">
+    <image src="{{showImg}}"/>
+  </view>
+  <view class="kaiping-anniu" bindtap="skipAnimation">
+    <text >进入请柬</text>
+  </view>
+  <!-- <view class="kaiping-header">
+    <view class="kaiping-btn" bindtap="skipAnimation">跳过 {{second}}s</view>
+  </view> -->
+</view>
+

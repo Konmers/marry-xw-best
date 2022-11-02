@@ -18,7 +18,7 @@ Page({
     mapData: [
       {
         id: '0',
-        city: "重庆",
+        city: "重庆 巴南区 李家沱 巴南大道中恒大城",
         name: "南仙庭饭店",
         longitude: 106.553153,
         latitude: 29.463832,
@@ -26,7 +26,7 @@ Page({
       },
       {
         id: '1',
-        city: "重庆 忠县 新立",
+        city: "重庆 忠县 新立镇",
         name: "金土地酒楼",
         longitude: 107.649154,
         latitude: 30.276569,
@@ -83,11 +83,11 @@ Page({
       id: 0,
       latitude: locationInfo.latitude,
       longitude: locationInfo.longitude,
-      iconPath: '../../static/images/maps.svg',//图标路径  maps.png
+      iconPath: '../../static/images/maps.png',//图标路径  maps.png
       width: 38,
       height: 45,
       callout: { //在markers上展示地址名称，根据需求是否需要
-        content: locationInfo.city + ' ' + locationInfo.name,
+        content: locationInfo.city + '\n' + locationInfo.name,
         color: '#fff',
         bgColor: '#ff6347',
         display: 'ALWAYS',
@@ -126,11 +126,11 @@ Page({
         id: 0,
         latitude: locationInfo[0].latitude,
         longitude: locationInfo[0].longitude,
-        iconPath: '../../static/images/maps.svg',//图标路径  maps.png
+        iconPath: '../../static/images/maps.png',//图标路径  maps.png
         width: 38,
         height: 45,
         callout: { //在markers上展示地址名称，根据需求是否需要
-          content: locationInfo[0].city + ' ' + locationInfo[0].name,
+          content: locationInfo[0].city + '\n' + locationInfo[0].name,
           color: '#fff',
           bgColor: '#ff6347',
           display: 'ALWAYS',
@@ -185,7 +185,7 @@ Page({
     var shareimg = this.data.shareList;
     //在写随机数
     var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-    let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+    let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
     let obj = {
       title: shareTitle,
       imageUrl: randomImg,
@@ -199,7 +199,7 @@ Page({
     var shareimg = this.data.shareList;
     //在写随机数
     var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-    let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+    let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
     let sharePath = "/pages/home/index";
     let obj = {
       title: shareTitle,

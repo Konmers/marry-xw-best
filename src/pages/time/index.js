@@ -51,7 +51,7 @@ Page({
     var shareimg = this.data.shareList;
     //在写随机数
     var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-    let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+    let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
     let obj = {
       title: shareTitle,
       imageUrl: randomImg,
@@ -65,7 +65,7 @@ Page({
     var shareimg = this.data.shareList;
     //在写随机数
     var randomImg = shareimg[Math.floor(Math.random() * shareimg.length)];
-    let shareTitle = "诚挚邀请您参加我们的婚礼，见证我们的爱情之路，共享美好时刻！";
+    let shareTitle = "诚挚邀请您参加我们的婚礼,见证我们美好时刻！";
     let sharePath = "/pages/home/index";
     let obj = {
       title: shareTitle,
