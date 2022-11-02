@@ -6,7 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        bgImg: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/image/time/Imgew.png?sign=5523f5b8a6e6d8f7a7474e369ac54475&t=1667305283',
+        bgImg: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/image/time/aImg.png?sign=aea7b837e4ddea7855e821fa4d2c8576&t=1667369461',
         screenWidths: 0, // 屏幕宽度
         screenHeights: 0, // 屏幕高度
         msgInputBottom: 0,
