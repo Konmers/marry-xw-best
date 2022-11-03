@@ -4,7 +4,7 @@
  * @Auther: Konmer
  * @time: 2022-10-21 09
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-02 11
+ * @LastEditTime: 2022-11-03 16
  */
 const env = require(`./env/env.${process.env.BUILD_TYPE}.js`)
 // import { camelCase } from 'lodash'
@@ -25,7 +25,7 @@ App({
       }
     })
     wx.cloud.init({
-      env: 'marry-server-9g5blwd6fcc45045',  // 用env指定云开发环境id
+      env: '',  // 用env指定云开发环境id
       traceUser: true  // 表示将用户访问接入到用户管理中
     })
 

@@ -1,11 +1,3 @@
-/*
- * @Description: 
- * @Version: 
- * @Auther: Konmer
- * @time: 2022-10-14 17
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-10-30 05
- */
 import {
 	storeBindingsBehavior
 } from 'mobx-miniprogram-bindings'

@@ -4,7 +4,7 @@
  * @Auther: Konmer
  * @time: 2022-10-21 17
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-01 00
+ * @LastEditTime: 2022-11-03 16
  */
 const formatTime = date => {
   const year = date.getFullYear();
@@ -18,9 +18,11 @@ const formatTime = date => {
 }
 
 const formatData = date => {
-  const year = date.getFullYear().toString();
-  const month = (date.getMonth() + 1).toString();
-  const day = date.getDate().toString();
+  var year = date.getFullYear().toString();
+  var month = (date.getMonth() + 1).toString();
+  month = month.length > 1 ? month : '0' + month;
+  var day = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
   return Number(year + month + day)
 }
 

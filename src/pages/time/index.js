@@ -11,22 +11,29 @@ Page({
     shareList: null
   },
   onLoad: function (options) {
-    const db = wx.cloud.database();
-    db
-      .collection("time")
-      .get()
-      .then((res) => {
-        //打印获取到的数据
-        this.setData({ imgs: res.data[0].imgList })
-      });
-    db
-      .collection("share")
-      .get()
-      .then((res) => {
-        // console.log("share  res  ---------------  ", res);
-        //打印获取到的数据
-        this.setData({ shareList: res.data[0].shareList })
-      });
+    //云开发 获取云数据库数据
+    // const db = wx.cloud.database();
+    // db
+    //   .collection("time")
+    //   .get()
+    //   .then((res) => {
+    //     //打印获取到的数据
+    //     this.setData({ imgs: res.data[0].imgList })
+    //   });
+    // db
+    //   .collection("share")
+    //   .get()
+    //   .then((res) => {
+    //     // console.log("share  res  ---------------  ", res);
+    //     //打印获取到的数据
+    //     this.setData({ shareList: res.data[0].shareList })
+    //   });
+    let shareList = [
+      "https://gd-hbimg.huaban.com/b69fce3de1199a9362989d49ef722a6069ed112bdfe64-BA6IAm_fw658",
+      "https://gd-hbimg.huaban.com/23018748be96c87e7ba1c9a88c1454c211e680e6be57b-DW0Fir_fw658",
+      "https://gd-hbimg.huaban.com/6a8b5cf52dab7c7c3538f49acc3a457fcfffcfa5392f5-eu5bX1_fw658"
+    ]
+    this.setData({ imgs: shareList, shareList: shareList })
     this.inits();
   },
   onReady() {

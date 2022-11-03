@@ -4,7 +4,6 @@
         <view class="iconfont {{active === index && 'active-iconfont-box'}}">
           <iconfont name="{{item.icon}}"></iconfont>
         </view>
-        <!-- <text class="title {{active === index && 'active-iconfont-txt'}}">{{item.text}}-{{active}}</text> -->
         <text class="title {{active === index && 'active-iconfont-txt'}}">{{item.text}}</text>
       </view>
     </block>

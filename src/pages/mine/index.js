@@ -9,43 +9,43 @@ import { shareEvent } from '../../utils/util.js'
 Page({
   data: {
     tabList: [
-      { title: '重庆', id: '0' },
-      { title: '忠县', id: '1' },
-      { title: '广元', id: '2' }
+      { title: '北京1', id: '0' },
+      { title: '北京2', id: '1' },
+      { title: '北京2', id: '2' }
     ],
     showtabList: [],
     tabId: '0',
     mapData: [
       {
         id: '0',
-        city: "重庆 巴南区 李家沱 巴南大道中恒大城",
-        name: "南仙庭饭店",
-        longitude: 106.553153,
-        latitude: 29.463832,
-        time: 20221203//20221203
+        city: "北京 北京市 海淀区 1",
+        name: "X朝阳区百子湾北京勤和别克",
+        longitude: 116.475812,
+        latitude: 39.899698,
+        time: 20221206
       },
       {
         id: '1',
-        city: "重庆 忠县 新立镇",
-        name: "金土地酒楼",
-        longitude: 107.649154,
-        latitude: 30.276569,
-        time: 20221203//20221210
+        city: "北京 北京市 海淀区 2",
+        name: "朝阳区兆泰国际中心",
+        longitude: 116.436625,
+        latitude: 39.920091,
+        time: 20221208
       },
       {
         id: '2',
-        city: "四川 广元 旺苍",
-        name: "米仓山大酒店",
-        longitude: 106.28574,
-        latitude: 32.22847,
-        time: 20221204//20230118
-      }
+        city: "北京 北京市 海淀区 3",
+        name: "燕莎奥特莱斯购物中心",
+        longitude: 116.487848,
+        latitude: 39.87724,
+        time: 20230102
+      },
     ],
     showData: [],
     markers: null,
     nowDate: null,
-    ManphoneNumber: '17623261139',
-    WomanphoneNumber: '18781224699',
+    ManphoneNumber: '161111111111',
+    WomanphoneNumber: '162222222222',
     screenWidths: 0, // 屏幕宽度
     screenHeights: 0, // 屏幕高度
     shareList: null
@@ -53,15 +53,15 @@ Page({
   onLoad: function () {
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var date = formatData(new Date());
-    this.setData({
-      nowDate: date > 20221203 ? date : 20221203
-    });
+    // this.setData({
+    //   nowDate: date > 20221206 ? date : 20221203
+    // });
     let locationInfoData = this.data.mapData
     let tabInfoData = this.data.tabList
     let locationInfo = []
     let tabInfo = []
     for (let index = 0; index < locationInfoData.length; index++) {
-      if (locationInfoData[index].time > this.data.nowDate) {
+      if (locationInfoData[index].time > this.data.date) {
         break;
       }
       else {
@@ -69,10 +69,12 @@ Page({
         tabInfo.push(tabInfoData[index])
       }
     }
+    console.log("tabInfo ----------  ", tabInfo);
     this.setData({
       tabId: tabInfo[0].id,
       showData: locationInfo,
-      showtabList: tabInfo
+      showtabList: tabInfo,
+      nowDate: date
     });
     this.inits();
   },
@@ -101,15 +103,22 @@ Page({
     this.setData({
       markers: mrk
     })
-    const db = wx.cloud.database();
-    db
-      .collection("share")
-      .get()
-      .then((res) => {
-        // console.log("share  res  ---------------  ", res);
-        //打印获取到的数据
-        this.setData({ shareList: res.data[0].shareList })
-      });
+    //云开发 获取云数据库数据
+    // const db = wx.cloud.database();
+    // db
+    //     .collection("share")
+    //     .get()
+    //     .then((res) => {
+    //         //打印获取到的数据
+    //         this.setData({ shareList: res.data[0].shareList })
+    //     });
+
+    let shareList = [
+      "https://gd-hbimg.huaban.com/b69fce3de1199a9362989d49ef722a6069ed112bdfe64-BA6IAm_fw658",
+      "https://gd-hbimg.huaban.com/23018748be96c87e7ba1c9a88c1454c211e680e6be57b-DW0Fir_fw658",
+      "https://gd-hbimg.huaban.com/6a8b5cf52dab7c7c3538f49acc3a457fcfffcfa5392f5-eu5bX1_fw658"
+    ]
+    this.setData({ shareList: shareList })
   },
   async onTab(e) {
     //得到子组件传来的参数

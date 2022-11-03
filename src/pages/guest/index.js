@@ -6,7 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        bgImg: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/image/time/aImg.png?sign=aea7b837e4ddea7855e821fa4d2c8576&t=1667369461',
+        bgImg: 'https://gd-hbimg.huaban.com/b69fce3de1199a9362989d49ef722a6069ed112bdfe64-BA6IAm_fw658',
         screenWidths: 0, // 屏幕宽度
         screenHeights: 0, // 屏幕高度
         msgInputBottom: 0,
@@ -15,15 +15,15 @@ Page({
         barrageLineCount: 13,//弹幕行数
         barragePullMillis: 0,// 拉取最新弹幕的毫秒值
         barrageNewMsgs: [],// 最新的弹幕
-        num: 10,
-        page: 0,
+        num: 10,//请求条数
+        page: 0,//页面
         contR: 0,//人数
         barrageSendedMsgs: [],// 已显示的弹幕，无新弹幕时则循环
         barrageMsgs: [],// 弹幕显示数据
         userInfo: {},
         hasUserInfo: false,
+        //随机弹幕颜色
         colorArr: ["#00ffff", "#00ffcc", "#FF3030", "#EE4000", "#FF1493", "#D2691E", "#FF4500", "#FFE4C4", "#FFD700", "#00FF7F", "#1E90FF", "#00CED1", "#00FFFF", "#FF3333", "#FFFF99"],
-
         // 存储随机颜色
         randomColorArr: [],
         labLen: '',
@@ -86,32 +86,7 @@ Page({
                 this.setData({ contR: arrAll.length })
             }
         })
-
-        // wx.cloud.callFunction({
-        //     name: "sreachList",  //云函数名
-        //     data: {
-        //         dbName: 'benediction',
-        //         pageIndex: 1,//每次从page条数据之后获取数据
-        //         pageSize: 10//用来记录每次获取数据的数量
-        //     }
-        // }).then(res => {
-        //     console.log(" res -------------- ", res);
-        //     // if (res.result.data.length > 0) {
-        //     //     let arr = res.result.data
-        //     //     let arrAll = arr.filter(function (item, index) {
-        //     //         let myArr = []  // 对象的某个属性放入临时数组，对比临时数组中元素所在对象的索引，
-        //     //         // 多个对象可push多个，均不相同return ..&&..   有一不同 return ..||..
-        //     //         arr.forEach(items => {
-        //     //             myArr.push(items.name)
-        //     //         })
-        //     //         return myArr.indexOf(item.name) === index
-        //     //     })
-        //     //     console.log(" arrAll -------------- ", arrAll);
-        //     //     this.setData({ contR: arrAll.length })
-        //     // }
-        // })
     },
-
     inits() {
         const that = this
         wx.getSystemInfo({
@@ -133,6 +108,7 @@ Page({
     //提交
     sendMsg: function (e) {
         // console.log("sendMsg  ---------");
+        //云开发 新增云数据库数据
         const msg = this.data.inputVal;
         if (msg == "") return;
         const userInfo = this.data.userInfo;
@@ -149,7 +125,6 @@ Page({
                 // console.log("添加成功  res --------------  ", res);
                 showTextToast("您的祝福已发送~");
                 this.setData({ showInput: false, inputVal: "" });
-                // this.getBarrageList();
             }).catch((res) => {
                 console.log("添加失败  res --------------  ", res);
             });
@@ -198,48 +173,91 @@ Page({
     },
     // 获取弹幕list
     async getBarrageList() {
-        let num = this.data.num;
-        let page = this.data.page;
-        await wx.cloud.callFunction({
-            name: "benedictionList",  //云函数名
-            data: {
-                num: num,    //用来记录每次获取数据的数量
-                page: page,  //每次从page条数据之后获取数据
-            }
-        }).then(res => {
-            if (res.result.data.length > 0) {
-                var newData = res.result.data;
-                //将时间戳写成固定格式
-                newData.forEach(item => {
-                    var d = new Date(item.time)
-                    var year = d.getFullYear()
-                    var month = d.getMonth() + 1
-                    var day = d.getDate()
-                    item.time = year + "/" + month + "/" + day
-                    //文本内容中的换行和空格要进行相应的转换，才能保证输出的正确性
-                    item.msg = item.msg.split('&hc').join('\n')
-                })
+        //云开发 使用云函数  获取云数据库数据
+        // let num = this.data.num;
+        // let page = this.data.page;
+        // await wx.cloud.callFunction({
+        //     name: "benedictionList",  //云函数名
+        //     data: {
+        //         num: num,    //用来记录每次获取数据的数量
+        //         page: page,  //每次从page条数据之后获取数据
+        //     }
+        // }).then(res => {
+        //     if (res.result.data.length > 0) {
+        //         var newData = res.result.data;
+        //         //将时间戳写成固定格式
+        //         newData.forEach(item => {
+        //             var d = new Date(item.time)
+        //             var year = d.getFullYear()
+        //             var month = d.getMonth() + 1
+        //             var day = d.getDate()
+        //             item.time = year + "/" + month + "/" + day
+        //             //文本内容中的换行和空格要进行相应的转换，才能保证输出的正确性
+        //             item.msg = item.msg.split('&hc').join('\n')
+        //         })
 
-                // 动态msg color
-                var labLen = newData.length;
-                var colorArr = this.data.colorArr;
-                var colorLen = colorArr.length;
-                var randomColorArrs = [];
+        //         // 动态msg color
+        //         var labLen = newData.length;
+        //         var colorArr = this.data.colorArr;
+        //         var colorLen = colorArr.length;
+        //         var randomColorArrs = [];
 
-                //判断执行
-                for (var i = 0; i < colorLen; i++) {
-                    if (labLen < i) break;
-                    else {
-                        let random = colorArr[Math.floor(Math.random() * colorLen)];
-                        randomColorArrs.push(random);
-                    }
-                }
-                this.setData({
-                    barrageNewMsgs: newData,
-                    randomColorArr: randomColorArrs,
-                });
+        //         //判断执行
+        //         for (var i = 0; i < colorLen; i++) {
+        //             if (labLen < i) break;
+        //             else {
+        //                 let random = colorArr[Math.floor(Math.random() * colorLen)];
+        //                 randomColorArrs.push(random);
+        //             }
+        //         }
+        //         this.setData({
+        //             barrageNewMsgs: newData,
+        //             randomColorArr: randomColorArrs,
+        //         });
+        //     }
+        // })
+
+        var newData = []
+        for (let index = 0; index < 10; index++) {
+            var cont = {
+                id: "202111100" + index,
+                avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202108%2F15%2F20210815235135_6c4dc.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.dtstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1670053297&t=246b69c7df7dad1dfa3e51afdf015f60",
+                msg: "第" + index + 1 + "个亚索，听我口令，吹所有人的手机屏幕，哈撒给",
+                name: index + 1 + "个亚索",
+                time: "2450" + index
             }
+            newData.push(cont);
+        }
+        console.log("newData ----------  ", newData);
+        //将时间戳写成固定格式
+        newData.forEach(item => {
+            var d = new Date(item.time)
+            var year = d.getFullYear()
+            var month = d.getMonth() + 1
+            var day = d.getDate()
+            item.time = year + "/" + month + "/" + day
+            //文本内容中的换行和空格要进行相应的转换，才能保证输出的正确性
+            item.msg = item.msg.split('&hc').join('\n')
         })
+
+        // 动态msg color
+        var labLen = newData.length;
+        var colorArr = this.data.colorArr;
+        var colorLen = colorArr.length;
+        var randomColorArrs = [];
+
+        //判断执行
+        for (var i = 0; i < colorLen; i++) {
+            if (labLen < i) break;
+            else {
+                let random = colorArr[Math.floor(Math.random() * colorLen)];
+                randomColorArrs.push(random);
+            }
+        }
+        this.setData({
+            barrageNewMsgs: newData,
+            randomColorArr: randomColorArrs,
+        });
     },
     // 动态显示弹幕
     asyShowbarrage() {

@@ -13,27 +13,25 @@ Page({
         srcMic: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/music/HoldMeWhileYouWait.mp3',//网路路径
         locationData: [
             {
-                strDate: "谨定于 2022年12月03日（星期六）中午11:48",
+                strDate: "谨定于 2022 年12 月03 日（星期六）中午11:48",
                 txt1: '农历 冬月 初十 中午十一点四十八 举办婚礼',
-                txt2: '2楼 海洋厅',
-                txt3: '重庆 巴南区 李家沱 巴南大道中恒大城南仙庭饭店',
-                time: 20221203//20221203
+                txt2: '1楼 大厅',
+                txt3: '北京 北京市 海淀区 XX大饭店',
+                time: 20221206
             },
             {
-                strDate: "谨定于 2022年12月18日（星期日）中午12:00",
-                txt1: '农历 冬月 二十五 中午十二点整 答谢宴',
-                txt2: '1楼',
-                txt3: '重庆 忠县 新立镇 金土地酒楼',
-                time: 20221218//20221218
+                strDate: "谨定于 2022 年12 月03 日（星期六）中午11:48",
+                txt1: '农历 冬月 初十 中午十一点四十八 举办婚礼',
+                txt2: '1楼 大厅',
+                txt3: '北京 北京市 海淀区 XX大饭店',
+                time: 20221208
             },
-        ],
-        locationDatas: [
             {
-                strDate: "谨定于 2023年01月17日（星期二）中午12:00",
-                txt1: '农历 腊月 二十六 中午十二点整  答谢宴',
-                txt2: '2楼',
-                txt3: '广元 旺苍 米仓山大酒店',
-                time: 20230118//20230118
+                strDate: "谨定于 2022 年12 月03 日（星期六）中午11:48",
+                txt1: '农历 冬月 初十 中午十一点四十八 举办婚礼',
+                txt2: '1楼 大厅',
+                txt3: '北京 北京市 海淀区 XX大饭店',
+                time: 20230102
             },
         ],
         showData: [],
@@ -43,15 +41,14 @@ Page({
     },
     onLoad() {
         var date = formatData(new Date());
-        if (date <= 20221218) {
-            this.setData({
-                showData: this.data.locationData,
-            });
-        }
-        else {
-            this.setData({
-                showData: this.data.locationDatas,
-            });
+        var locationDatas = this.data.locationData
+        for (const item of locationDatas) {
+            if (item.time > date) {
+                var middData = []
+                middData.push(item)
+                this.setData({ showData: middData });
+                break;
+            }
         }
         this.inits();
         this.getDatas();
@@ -64,77 +61,52 @@ Page({
         audioCtx.loop = true
         audioCtx.play();
     },
-    onShow() {
-        // const that = this
-        // that.isPlay = true
-        // audioCtx.title = "PerfectDuet"
-        // audioCtx.src = that.data.audioUrl//本地路径音频
-        // // audioCtx.src = that.data.srcMic//网路路径音频
-        // audioCtx.loop = true
-    },
     onReady() {
-        const db = wx.cloud.database();
-        db
-            .collection("share")
-            .get()
-            .then((res) => {
-                // console.log("share  res  ---------------  ", res);
-                //打印获取到的数据
-                this.setData({ shareList: res.data[0].shareList })
-            });
+        //云开发 获取云数据库数据
+        // const db = wx.cloud.database();
+        // db
+        //     .collection("share")
+        //     .get()
+        //     .then((res) => {
+        //         //打印获取到的数据
+        //         this.setData({ shareList: res.data[0].shareList })
+        //     });
+
+        let shareList = [
+            "https://gd-hbimg.huaban.com/b69fce3de1199a9362989d49ef722a6069ed112bdfe64-BA6IAm_fw658",
+            "https://gd-hbimg.huaban.com/23018748be96c87e7ba1c9a88c1454c211e680e6be57b-DW0Fir_fw658",
+            "https://gd-hbimg.huaban.com/6a8b5cf52dab7c7c3538f49acc3a457fcfffcfa5392f5-eu5bX1_fw658"
+        ]
+        this.setData({ shareList: shareList })
     },
     inits() {
         const that = this
         wx.getSystemInfo({
             success: function (res) {
                 // console.log("getSystemInfo ------------  ", res); //获取设备所有信息
-                // SDKVersion: "2.4.1";
-                // batteryLevel: 96;
-                // brand: "devtools";
-                // deviceOrientation: "portrait";
-                // errMsg: "getSystemInfo:ok";
-                // fontSizeSetting: 16;
-                // language: "zh_CN";
-                // model: "iPhone 6/7/8";
-                // pixelRatio: 2;
-                // platform: "devtools";
-                // screenHeight: 667;
-                // screenWidth: 375;
-                // statusBarHeight: 20;
-                // system: "iOS 10.0.1";
-                // version: "7.0.4";
-                // windowHeight: 555;
-                // windowWidth: 375;
-                // console.log(res.windowWidth); //屏幕宽度
-                // console.log("res --------------  ", res);
-                // that.setData({ screenWidths: res.screenWidth, screenHeights: res.screenHeight })
                 that.setData({ screenWidths: res.windowWidth, screenHeights: res.windowHeight - 100 })
-                // console.log("this.screenWidth --------------  ", this.screenWidth);
-                // console.log("this.screenHeight --------------  ", this.screenHeight);
             },
         });
     },
+    //获取图片
     getDatas() {
-        // wx.showLoading(
-        //     {
-        //         title: "加载中",
-        //     },
-        //     500
-        // );
-        const db = wx.cloud.database();
-        db
-            .collection("banner")
-            .get()
-            .then((res) => {
-                //打印获取到的数据
-                this.setData({ bannerList: res.data[0].bannerList })
-            });
+
+        //云开发 获取云数据库数据
+        // const db = wx.cloud.database();
+        // db
+        //     .collection("banner")
+        //     .get()
+        //     .then((res) => {
+        //         //打印获取到的数据
+        //         this.setData({ bannerList: res.data[0].bannerList })
+        //     });
+
+        let bannerList = ['http://n.sinaimg.cn/spider20210621/79/w600h3479/20210621/e014-krpikqh3113721.jpg']
+        this.setData({ bannerList: bannerList })
     },
     audioControl() {
         const that = this
         if (that.isPlay) {
-            // console.log("this.data.isPlay 1----------   ", this.data.isPlay);
-            // console.log("that.isPlay 1----------   ", that.isPlay);
             audioCtx.pause()
             that.isPlay = false
             this.data.isPlay = false
@@ -142,8 +114,6 @@ Page({
             showTextToast("您已暂停音乐播放~");
         }
         else {
-            // console.log("this.data.isPlay 2----------   ", this.data.isPlay);
-            // console.log("that.isPlay 2----------   ", that.isPlay);
             audioCtx.play()
             that.isPlay = true
             this.data.isPlay = true
@@ -156,8 +126,6 @@ Page({
         db.collection("music")
             .get()
             .then((res) => {
-                // console.log("getMusicUrl   ---------  ", res);
-                // that.audioUrl = res.data[0].musicUrl;
                 this.setData({ audioUrl: res.data[0].musicUrl })
                 this.audioCtx.play();
             });

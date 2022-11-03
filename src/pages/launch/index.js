@@ -1,8 +1,16 @@
+/*
+ * @Description: 
+ * @Version: 
+ * @Auther: Konmer
+ * @time: 2022-11-03 15
+ * @LastEditors: 
+ * @LastEditTime: 2022-11-03 15
+ */
 import { shareEvent } from '../../utils/util.js'
 Page({
     data: {
         second: 10,
-        showImg: 'https://6d61-marry-server-9g5blwd6fcc45045-1313739527.tcb.qcloud.la/image/share/sharezx.png?sign=3c3d04b4b1203ded52b2302b27bb8129&t=1667361017',
+        showImg: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201902%2F14%2F20190214175912_Ue24j.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1670054076&t=5ca5bfa73953ca89dbc6c34df836c490',
         timer: null,
         shareList: null,
     },

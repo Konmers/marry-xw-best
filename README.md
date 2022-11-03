@@ -11,6 +11,8 @@ git clone https://github.com/touxing/miniprogram-webpack.git
 技术栈 
 # 微信小程序 + 云开发 + 云函数
 
+云开发环境必须配置id
+# 根目录 app.js 中  用env指定云开发环境id
 
 微信小程序运行
 # 直接选择 dist -> dev 
@@ -22,7 +24,9 @@ dist 文件
 # 引用iconfont 彩色图标 Symbol类型
 
 iconfont 初始化
-##  npx iconfont-init  
+##  npx iconfont-init
+##  根目录 iconfont.json
+##  替换  symbol_url 值
 
 iconfont 更新
 ##   npx iconfont-wechat    
@@ -41,6 +45,7 @@ iconfont 更新
 
 地图模块
 # map地图 动态赋值标点信息及样式 marker
+# 腾讯地图定位精确度高  https://lbs.qq.com/getPoint/
 
 实时弹幕墙 
 # 云开发

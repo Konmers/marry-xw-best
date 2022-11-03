@@ -26,7 +26,7 @@
     <view class="info" :animation="animationData">
       <view class="content">
         <!-- <h1>Mr.谢 & Miss.任</h1> -->
-        <h1>谢威 & 任清</h1>
+        <h1>张三 & 李四</h1>
         <view style="border-bottom-color: none;" class="content" wx:for="{{showData}}" wx:for-item="Ditem">
           <p style="font-size: 14px;">{{ Ditem.strDate }}</p>
           <p>{{Ditem.txt1}}</p>
