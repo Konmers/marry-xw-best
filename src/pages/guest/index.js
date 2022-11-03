@@ -12,18 +12,14 @@ Page({
         msgInputBottom: 0,
         inputVal: "",
         showInput: false,
-        barrageLineCount: 10,
-        // 拉取最新弹幕的毫秒值
-        barragePullMillis: 0,
-        // 最新的弹幕
-        barrageNewMsgs: [],
-        num: 20,
+        barrageLineCount: 13,//弹幕行数
+        barragePullMillis: 0,// 拉取最新弹幕的毫秒值
+        barrageNewMsgs: [],// 最新的弹幕
+        num: 10,
         page: 0,
         contR: 0,//人数
-        // 已显示的弹幕，无新弹幕时则循环
-        barrageSendedMsgs: [],
-        // 弹幕显示数据
-        barrageMsgs: [],
+        barrageSendedMsgs: [],// 已显示的弹幕，无新弹幕时则循环
+        barrageMsgs: [],// 弹幕显示数据
         userInfo: {},
         hasUserInfo: false,
         colorArr: ["#00ffff", "#00ffcc", "#FF3030", "#EE4000", "#FF1493", "#D2691E", "#FF4500", "#FFE4C4", "#FFD700", "#00FF7F", "#1E90FF", "#00CED1", "#00FFFF", "#FF3333", "#FFFF99"],
@@ -54,11 +50,11 @@ Page({
         }, 5000, this);
 
         // 动态显示弹幕
-        setInterval((that) => {
-            this.asyShowbarrage();
-        }, 500, this);
+        await setInterval(async (that) => {
+            await this.asyShowbarrage();
+        }, 1000, this);
         const db = wx.cloud.database();
-        db
+        await db
             .collection("share")
             .get()
             .then((res) => {

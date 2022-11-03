@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 
+ * @Auther: Konmer
+ * @time: 2022-11-01 22
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-11-03 10
+ */
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
