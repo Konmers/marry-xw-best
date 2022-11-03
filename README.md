@@ -4,6 +4,19 @@ git clone https://github.com/touxing/miniprogram-webpack.git
 
 ```
 
+运行
+# npm i
+# npm run dev
+
+技术栈 
+# 微信小程序 + 云开发 + 云函数
+
+
+微信小程序运行
+# 直接选择 dist -> dev 
+
+dist 文件 
+# dev 打包开发文件
 
 
 # 引用iconfont 彩色图标 Symbol类型
